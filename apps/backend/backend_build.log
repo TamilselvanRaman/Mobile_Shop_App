@@ -1,0 +1,33 @@
+
+> backend@0.0.0 build
+> tsc
+
+src/controllers/ProductController.ts(9,37): error TS18046: 'error' is of type 'unknown'.
+src/controllers/ProductController.ts(20,37): error TS18046: 'error' is of type 'unknown'.
+../../packages/core/src/store/authStore.ts(1,24): error TS2307: Cannot find module 'zustand' or its corresponding type declarations.
+../../packages/core/src/store/authStore.ts(12,48): error TS7006: Parameter 'set' implicitly has an 'any' type.
+../../packages/core/src/store/authStore.ts(16,11): error TS7006: Parameter 'user' implicitly has an 'any' type.
+../../packages/core/src/store/authStore.ts(16,17): error TS7006: Parameter 'token' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(1,24): error TS2307: Cannot find module 'zustand' or its corresponding type declarations.
+../../packages/core/src/store/cartStore.ts(17,48): error TS7006: Parameter 'set' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(17,53): error TS7006: Parameter 'get' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(19,13): error TS7006: Parameter 'product' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(20,10): error TS7006: Parameter 'state' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(21,46): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(24,35): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(31,16): error TS7006: Parameter 'productId' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(32,10): error TS7006: Parameter 'state' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(33,34): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(35,20): error TS7006: Parameter 'productId' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(35,31): error TS7006: Parameter 'quantity' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(36,10): error TS7006: Parameter 'state' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(37,31): error TS7006: Parameter 'item' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(44,26): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+../../packages/core/src/store/cartStore.ts(44,31): error TS7006: Parameter 'item' implicitly has an 'any' type.
+npm error Lifecycle script `build` failed with error:
+npm error code 2
+npm error path S:\Project\intenship\Mobile Shop App\apps\backend
+npm error workspace backend@0.0.0
+npm error location S:\Project\intenship\Mobile Shop App\apps\backend
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c tsc

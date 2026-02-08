@@ -1,0 +1,30 @@
+
+> web@0.0.0 build
+> next build
+
+   ▲ Next.js 14.0.0
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    8.11 kB        95.7 kB
+└ ○ /_not-found                          877 B          88.5 kB
++ First Load JS shared by all            87.6 kB
+  ├ chunks/472-2245aec2f197fb1c.js       32.4 kB
+  ├ chunks/fd9d1056-383c70306ba3fb50.js  53.3 kB
+  ├ chunks/main-app-91f2f3fab9097dfe.js  230 B
+  └ chunks/webpack-49054d2ed1fee12d.js   1.7 kB
+
+
+○  (Static)  prerendered as static HTML
+

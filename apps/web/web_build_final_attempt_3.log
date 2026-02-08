@@ -1,0 +1,9 @@
+
+> web@0.0.0 build
+> next build
+
+   ▲ Next.js 14.0.0
+
+   Creating an optimized production build ...
+ ⚠ Custom webpack configuration is detected. When using a custom webpack configuration, the Webpack build worker is disabled by default. To force enable it, set the "experimental.webpackBuildWorker" option to "true". Read more: https://nextjs.org/docs/messages/webpack-build-worker-opt-out
+Terminate batch job (Y/N)? Terminate batch job (Y/N)? 

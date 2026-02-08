@@ -1,0 +1,97 @@
+
+> web@0.0.0 build
+> next build
+
+   ▲ Next.js 14.0.0
+
+   Creating an optimized production build ...
+ ⚠ Custom webpack configuration is detected. When using a custom webpack configuration, the Webpack build worker is disabled by default. To force enable it, set the "experimental.webpackBuildWorker" option to "true". Read more: https://nextjs.org/docs/messages/webpack-build-worker-opt-out
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+TypeError: i.default.preload is not a function
+    at Module.preloadStyle (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:83870)
+    at S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:3722
+    at Array.map (<anonymous>)
+    at rg (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:3641)
+    at rw (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:5292)
+    at S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:23790
+    at em (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:76:10452)
+    at eE (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:76:13849)
+    at eR (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:76:14558)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+TypeError: Cannot read properties of null (reading 'useContext')
+    at o.useContext (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:57:5584)
+    at usePathname (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:23674)
+    at ErrorBoundary (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:13178)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38654)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nw (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38210)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38805)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:51944)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54991)
+
+Error occurred prerendering page "/_not-found". Read more: https://nextjs.org/docs/messages/prerender-error
+TypeError: Cannot read properties of null (reading 'useContext')
+    at o.useContext (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:57:5584)
+    at usePathname (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:23674)
+    at ErrorBoundary (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:13178)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38654)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nw (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38210)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38805)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:51944)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54991)
+TypeError: i.default.preload is not a function
+    at Module.preloadStyle (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:83870)
+    at S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:3722
+    at Array.map (<anonymous>)
+    at rg (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:3641)
+    at rw (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:5292)
+    at S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:111:23790
+    at em (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:76:10452)
+    at eE (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:76:13849)
+    at eR (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:76:14558)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)
+TypeError: Cannot read properties of null (reading 'useContext')
+    at o.useContext (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:57:5584)
+    at usePathname (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:23674)
+    at ErrorBoundary (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:13178)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38654)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nw (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38210)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38805)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:51944)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54991)
+
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+TypeError: Cannot read properties of null (reading 'useContext')
+    at o.useContext (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:57:5584)
+    at usePathname (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:23674)
+    at ErrorBoundary (S:\Project\intenship\Mobile Shop App\apps\web\.next\server\chunks\235.js:1:13178)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38654)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nw (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38210)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:38805)
+    at nk (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:51944)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54802)
+    at nC (S:\Project\intenship\Mobile Shop App\apps\web\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:28:54991)
+   Generating static pages (2/4) 
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4) 
+
+> Export encountered errors on following paths:
+	/_not-found
+	/page: /
+npm error Lifecycle script `build` failed with error:
+npm error code 1
+npm error path S:\Project\intenship\Mobile Shop App\apps\web
+npm error workspace web@0.0.0
+npm error location S:\Project\intenship\Mobile Shop App\apps\web
+npm error command failed
+npm error command C:\WINDOWS\system32\cmd.exe /d /s /c next build
