@@ -1,0 +1,66 @@
+﻿
+> web@0.0.0 build
+> next build
+
+   Γû▓ Next.js 14.0.0
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+node.exe : Failed to compile.
+At C:\Program Files\nodejs\npm.ps1:29 
+char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpeci 
+   fied: (Failed to compile.:String)   
+  [], RemoteException
+    + FullyQualifiedErrorId : NativeCo 
+   mmandError
+ 
+
+./app/components/layout/Navbar.tsx:78:3
+0
+Type error: 'pathname' is possibly 
+'null'.
+
+[0m [90m 76 |[39m         
+[33m<[39m[33mnav[39m 
+className[33m=[39m[32m"hidden 
+md:flex items-center gap-1 
+bg-slate-100/50 dark:bg-slate-900/50 
+p-1.5 rounded-full border 
+border-slate-200/50 
+dark:border-slate-800/50 
+backdrop-blur-sm"[39m[33m>[39m[0m
+[0m [90m 77 |[39m           
+{navLinks[33m.[39mmap((link) 
+[33m=>[39m {[0m
+[0m[31m[1m>[22m[39m[90m 78 
+|[39m             [36mconst[39m 
+isActive [33m=[39m pathname[33m.[39
+mstartsWith(link[33m.[39mhref)[33m;
+[39m[0m
+[0m [90m    |[39m                   
+           [31m[1m^[22m[39m[0m
+[0m [90m 79 |[39m             
+[36mconst[39m [33mIcon[39m 
+[33m=[39m 
+link[33m.[39micon[33m;[39m[0m
+[0m [90m 80 |[39m             [0m
+[0m [90m 81 |[39m             
+[36mreturn[39m ([0m
+npm error Lifecycle script `build` 
+failed with error:
+npm error code 1
+npm error path 
+S:\Project\intenship\Mobile Shop 
+App\apps\web
+npm error workspace web@0.0.0
+npm error location 
+S:\Project\intenship\Mobile Shop 
+App\apps\web
+npm error command failed
+npm error command 
+C:\WINDOWS\system32\cmd.exe /d /s /c 
+next build

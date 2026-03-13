@@ -78,10 +78,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <NavItem href="/admin/reports" label="Analytics" icon={BarChart3} active={pathname === '/admin/reports'} />
             
             <SectionLabel className="mt-8">Management</SectionLabel>
-            <NavItem href="/admin/products" label="Products" icon={Package} active={pathname.startsWith('/admin/products')} />
-            <NavItem href="/admin/orders" label="Orders" icon={ShoppingBag} active={pathname.startsWith('/admin/orders')} />
-            <NavItem href="/admin/services" label="Services" icon={Wrench} active={pathname.startsWith('/admin/services')} />
-            <NavItem href="/admin/users" label="Users" icon={Users} active={pathname.startsWith('/admin/users')} />
+            <NavItem href="/admin/products" label="Products" icon={Package} active={pathname?.startsWith('/admin/products') ?? false} />
+            <NavItem href="/admin/orders" label="Orders" icon={ShoppingBag} active={pathname?.startsWith('/admin/orders') ?? false} />
+            <NavItem href="/admin/services" label="Services" icon={Wrench} active={pathname?.startsWith('/admin/services') ?? false} />
+            <NavItem href="/admin/users" label="Users" icon={Users} active={pathname?.startsWith('/admin/users') ?? false} />
             
             <SectionLabel className="mt-8">System</SectionLabel>
             <NavItem href="/admin/settings" label="Settings" icon={Settings} active={pathname === '/admin/settings'} />

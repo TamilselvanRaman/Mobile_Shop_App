@@ -19,24 +19,24 @@ export function FilterSidebar() {
   
   // Local state for immediate UI feedback, synced with URL
   const [filters, setFilters] = useState({
-    brand: searchParams.getAll("brand"),
-    condition: searchParams.getAll("condition"),
-    minPrice: searchParams.get("minPrice") || "",
-    maxPrice: searchParams.get("maxPrice") || "",
+    brand: searchParams?.getAll("brand") || [],
+    condition: searchParams?.getAll("condition") || [],
+    minPrice: searchParams?.get("minPrice") || "",
+    maxPrice: searchParams?.get("maxPrice") || "",
   });
 
   // Sync state with URL updates
   useEffect(() => {
      setFilters({
-        brand: searchParams.get("brand")?.split(",") || [],
-        condition: searchParams.get("condition")?.split(",") || [],
-        minPrice: searchParams.get("minPrice") || "",
-        maxPrice: searchParams.get("maxPrice") || "",
+        brand: searchParams?.get("brand")?.split(",") || [],
+        condition: searchParams?.get("condition")?.split(",") || [],
+        minPrice: searchParams?.get("minPrice") || "",
+        maxPrice: searchParams?.get("maxPrice") || "",
      });
   }, [searchParams]);
 
   const updateFilters = (newFilters: any) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString() || "");
     
     if (newFilters.brand.length) params.set("brand", newFilters.brand.join(","));
     else params.delete("brand");

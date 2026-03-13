@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Button, Input } from '@mobile-shop/ui';
 import { Search, Plus, Filter, Package, Tag, Layers, MoreVertical } from 'lucide-react';
 import { motion } from 'framer-motion';
+import AddProductModal from './AddProductModal';
 
 interface Product {
   _id: string;
@@ -16,11 +17,13 @@ interface Product {
 }
 
 export default function ProductsPage() {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
+  const fetchProducts = () => {
+    setLoading(true);
     fetch('http://localhost:5001/api/products')
       .then(res => res.json())
       .then(data => {
@@ -31,7 +34,15 @@ export default function ProductsPage() {
         console.error("Failed to fetch products", err);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
+
+  const handleProductAdded = () => {
+    fetchProducts();
+  };
 
   const filteredProducts = products.filter(product => 
      product.name?.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -48,7 +59,7 @@ export default function ProductsPage() {
            <p className="text-slate-400 text-sm mt-1">Manage physical stock and master catalog.</p>
         </div>
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-             <Button className="bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] border-none">
+             <Button onClick={() => setIsAddModalOpen(true)} className="bg-indigo-600 hover:bg-indigo-500 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] border-none">
                 <Plus size={18} className="mr-2" /> Add Product
             </Button>
         </motion.div>
@@ -140,6 +151,12 @@ export default function ProductsPage() {
              </table>
          </div>
       </Card>
+
+      <AddProductModal 
+        isOpen={isAddModalOpen} 
+        onClose={() => setIsAddModalOpen(false)} 
+        onProductAdded={handleProductAdded} 
+      />
     </div>
   );
 }

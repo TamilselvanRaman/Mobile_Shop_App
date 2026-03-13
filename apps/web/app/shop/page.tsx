@@ -4,6 +4,8 @@ import { FilterSidebar } from "../components/shop/FilterSidebar";
 import { ProductCard } from "../components/shop/ProductCard";
 import { Search } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 // Server action to fetch products
 async function getProducts(searchParams: any) {
   try {

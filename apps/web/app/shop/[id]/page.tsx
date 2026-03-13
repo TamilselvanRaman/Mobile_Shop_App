@@ -3,6 +3,8 @@ import { Container, Button, Card, Badge } from "@mobile-shop/ui";
 import { Star, Truck, ShieldCheck, ArrowLeft, Heart, Share2 } from "lucide-react";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
+
 // Fetch single product data
 async function getProduct(id: string) {
   try {

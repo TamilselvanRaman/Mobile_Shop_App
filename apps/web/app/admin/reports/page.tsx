@@ -112,6 +112,7 @@ export default function ReportsPage() {
                 </div>
                 
                 <div className="flex-1 w-full min-h-[300px]">
+                    {typeof window !== 'undefined' && data.length > 0 && (
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data}>
                             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
@@ -143,6 +144,7 @@ export default function ReportsPage() {
                             />
                         </BarChart>
                     </ResponsiveContainer>
+                    )}
                 </div>
              </Card>
          </motion.div>

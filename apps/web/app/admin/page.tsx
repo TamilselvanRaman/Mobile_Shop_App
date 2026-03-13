@@ -12,8 +12,8 @@ export default function AdminDashboard() {
     revenue: 0,
     servicesCount: 12
   });
-  const [recentOrders, setRecentOrders] = useState([]);
-  const [recentBookings, setRecentBookings] = useState([]);
+  const [recentOrders, setRecentOrders] = useState<any[]>([]);
+  const [recentBookings, setRecentBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

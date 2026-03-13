@@ -56,10 +56,10 @@ export default function ServicesPage() {
             Booking Confirmed!
         </motion.h1>
         <motion.p 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} delay={0.2}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
             className="text-slate-500 dark:text-slate-400 max-w-md mb-8 text-lg"
         >
-          We've received your repair request. Our technicians will review it and contact you shortly at <span className="text-indigo-500 font-semibold">{formData.email}</span>.
+          We&apos;ve received your repair request. Our technicians will review it and contact you shortly at <span className="text-indigo-500 font-semibold">{formData.email}</span>.
         </motion.p>
         <Button onClick={() => setSubmitted(false)} size="lg" className="rounded-full px-8">Book Another Repair</Button>
       </Container>

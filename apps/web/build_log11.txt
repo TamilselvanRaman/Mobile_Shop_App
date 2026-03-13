@@ -1,0 +1,48 @@
+﻿
+> web@0.0.0 build
+> next build
+
+   Γû▓ Next.js 14.0.0
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/14) ...
+
+   Generating static pages (3/14) 
+
+   Generating static pages (6/14) 
+
+   Generating static pages (10/14) 
+
+ Γ£ô Generating static pages (14/14) 
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+Γöî Γùï /                                    7.31 kB         144 kB
+Γö£ Γùï /_not-found                          0 B                0 B
+Γö£ Γùï /account                             5.31 kB         135 kB
+Γö£ Γùï /admin                               5.01 kB         135 kB
+Γö£ Γùï /admin/orders                        3.5 kB         91.5 kB
+Γö£ Γùï /admin/products                      6.46 kB         137 kB
+Γö£ Γùï /admin/reports                       120 kB          250 kB
+Γö£ Γùï /admin/services                      4.03 kB          92 kB
+Γö£ Γùï /admin/settings                      3.58 kB         134 kB
+Γö£ Γùï /admin/users                         3.67 kB         134 kB
+Γö£ Γùï /login                               3.91 kB         141 kB
+Γö£ Γùï /register                            3.92 kB         141 kB
+Γö£ Γùï /services                            4.13 kB         134 kB
+Γö£ ╬╗ /shop                                4.57 kB         142 kB
+Γöö ╬╗ /shop/[id]                           2.48 kB        97.5 kB
++ First Load JS shared by all            88 kB
+  Γö£ chunks/472-ccc143f21cd0e1ed.js       32.5 kB
+  Γö£ chunks/fd9d1056-607ba863f2fcfe40.js  53.3 kB
+  Γö£ chunks/main-app-c38af710490d1689.js  235 B
+  Γöö chunks/webpack-09ffa85c0edf1c37.js   1.95 kB
+
+
+Γùï  (Static)   prerendered as static HTML
+╬╗  (Dynamic)  server-rendered on demand using Node.js
+

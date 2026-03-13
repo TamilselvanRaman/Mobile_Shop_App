@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.register = void 0;
+exports.getUsers = exports.login = exports.register = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = require("../models/User");
@@ -46,3 +46,13 @@ const login = async (req, res) => {
     }
 };
 exports.login = login;
+const getUsers = async (req, res) => {
+    try {
+        const users = await User_1.UserModel.find().select('-password'); // Exclude password
+        res.status(200).json(users);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error fetching users" });
+    }
+};
+exports.getUsers = getUsers;

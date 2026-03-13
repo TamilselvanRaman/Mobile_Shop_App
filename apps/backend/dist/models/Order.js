@@ -33,33 +33,29 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.OrderModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const UserSchema = new mongoose_1.Schema({
-    email: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    password: { type: String, required: true },
-    role: {
+const OrderSchema = new mongoose_1.Schema({
+    userId: { type: String, required: true }, // Ideally ref to User, but String for flexibility
+    items: [
+        {
+            productId: { type: String, required: true },
+            productName: { type: String, required: true },
+            quantity: { type: Number, required: true },
+            price: { type: Number, required: true },
+        },
+    ],
+    totalAmount: { type: Number, required: true },
+    status: {
         type: String,
-        enum: ["admin", "manager", "technician", "customer"],
-        default: "customer",
+        enum: ["pending", "confirmed", "shipped", "delivered", "cancelled"],
+        default: "pending",
     },
-    phone: { type: String },
-    address: {
-        street: String,
-        city: String,
-        state: String,
-        zip: String,
+    paymentStatus: {
+        type: String,
+        enum: ["pending", "paid", "failed"],
+        default: "pending",
     },
+    shippingAddress: { type: String, required: true },
 }, { timestamps: true });
-// Add a toJSON transform to map _id to id
-UserSchema.set('toJSON', {
-    transform: (doc, ret) => {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.__v;
-        delete ret.password; // Don't return password
-        return ret;
-    }
-});
-exports.UserModel = mongoose_1.default.model("User", UserSchema);
+exports.OrderModel = mongoose_1.default.model("Order", OrderSchema);
