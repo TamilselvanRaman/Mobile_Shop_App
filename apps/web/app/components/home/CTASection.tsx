@@ -41,7 +41,7 @@ export function CTASection() {
                   <Sparkles className="w-4 h-4" /> <span>Experience the Future</span>
               </div>
               
-              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight leading-tight">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tight leading-tight">
                   Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Upgrade?</span>
               </h2>
               

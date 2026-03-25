@@ -40,7 +40,7 @@ export function ProductCard({ product }: { product: Product }) {
          </div>
          
          {/* Quick Actions (Hover) */}
-         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-4 group-hover:translate-y-0">
+         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:translate-y-4 md:group-hover:translate-y-0">
             <Button size="sm" variant="secondary" className="rounded-full w-10 h-10 p-0 shadow-lg">
                <Heart size={18} />
             </Button>

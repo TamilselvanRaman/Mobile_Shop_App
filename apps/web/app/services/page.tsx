@@ -85,7 +85,7 @@ export default function ServicesPage() {
                 <Zap className="w-4 h-4 fill-indigo-500" /> Expert Repairs & Diagnostics
              </div>
              
-             <h1 className="text-5xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight leading-tight">
+             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight leading-tight">
                Bring Your Device <br/>
                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500 dark:from-indigo-400 dark:to-blue-400">Back to Life.</span>
              </h1>
@@ -122,7 +122,7 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Card className="p-8 md:p-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-2xl shadow-indigo-500/10 rounded-3xl relative overflow-hidden">
+            <Card className="p-6 md:p-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-2xl shadow-indigo-500/10 rounded-3xl relative overflow-hidden">
                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-blue-500" />
                
                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Book a Repair</h2>
