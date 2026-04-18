@@ -1,8 +1,10 @@
-import React from "react";
-import { Card, Button, Badge } from "@mobile-shop/ui";
-import { ShoppingCart, Heart } from "lucide-react";
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
+import { ShoppingCart, Heart, Eye, ArrowUpRight } from "lucide-react";
+import { Button, Badge } from "@mobile-shop/ui";
+import { motion } from "framer-motion";
+import { useCart } from "@/context/CartContext";
 
 interface Product {
   _id: string;
@@ -13,60 +15,103 @@ interface Product {
   image: string;
   isNew?: boolean;
   category: string;
+  condition?: string;
+  stock?: number;
 }
 
 export function ProductCard({ product }: { product: Product }) {
+  const { addToCart } = useCart();
+  
   return (
-    <div className="group relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl transition-all duration-300">
-      {/* Badges */}
-      <div className="absolute top-3 left-3 z-10 flex gap-2">
-        {product.isNew && <Badge variant="default" className="bg-primary-600">New</Badge>}
-        {product.originalPrice && (
-          <Badge variant="outline" className="bg-red-100 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-400">
-            {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-          </Badge>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group relative flex flex-col bg-white dark:bg-slate-900/40 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] hover:border-primary-500/30 overflow-hidden"
+    >
+      {/* Visual Container */}
+      <div className="relative aspect-[4/5] overflow-hidden m-2 rounded-[2rem] bg-slate-50 dark:bg-slate-900">
+        {product.image ? (
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-slate-200 font-bold uppercase tracking-tighter text-4xl -rotate-12 opacity-30 select-none">
+            {product.brand}
+          </div>
         )}
-      </div>
-
-      {/* Image Area */}
-      <div className="relative aspect-[4/5] bg-slate-100 dark:bg-slate-800 overflow-hidden">
-         {/* Placeholder for now using generic image if no URL */}
-         <div className="absolute inset-0 flex items-center justify-center text-slate-300">
-            {product.image ? (
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            ) : (
-                <div className="w-20 h-32 bg-slate-200 rounded-md"></div>
+        
+        {/* Floating Badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <Badge className="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md text-[9px] font-black tracking-widest uppercase py-1 border-0 shadow-sm text-slate-900 dark:text-white">
+                {product.category || 'Tech'}
+            </Badge>
+            {product.stock && product.stock < 10 && (
+                <Badge className="bg-rose-500 text-white text-[9px] font-black tracking-widest uppercase py-1 border-0 shadow-lg shadow-rose-500/20">
+                    Low Stock
+                </Badge>
             )}
-         </div>
-         
-         {/* Quick Actions (Hover) */}
-         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 md:translate-y-4 md:group-hover:translate-y-0">
-            <Button size="sm" variant="secondary" className="rounded-full w-10 h-10 p-0 shadow-lg">
-               <Heart size={18} />
-            </Button>
-            <Button size="sm" className="rounded-full shadow-lg gap-2">
-               <ShoppingCart size={16} /> Add 
-            </Button>
-         </div>
-      </div>
+        </div>
 
-      {/* Details */}
-      <div className="p-4">
-        <div className="text-xs text-slate-500 mb-1 uppercase tracking-wider font-semibold">{product.brand}</div>
-        <Link href={`/shop/${product._id}`} className="block">
-           <h3 className="font-bold text-slate-900 dark:text-white mb-2 truncate group-hover:text-primary-600 transition-colors">
-              {product.name}
-           </h3>
-        </Link>
-        <div className="flex items-end justify-between">
-           <div>
-              <div className="text-lg font-bold text-slate-900 dark:text-white">${product.price}</div>
-              {product.originalPrice && (
-                 <div className="text-sm text-slate-400 line-through">${product.originalPrice}</div>
-              )}
-           </div>
+        {/* Hover Actions Menu */}
+        <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+            <div className="flex gap-3 translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                <Link href={`/shop/${product._id}`}>
+                    <button className="w-12 h-12 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all shadow-xl">
+                        <Eye size={20} />
+                    </button>
+                </Link>
+                <button 
+                  onClick={() => addToCart(product)}
+                  className="w-12 h-12 rounded-full bg-white text-slate-900 flex items-center justify-center hover:bg-primary-600 hover:text-white transition-all shadow-xl"
+                >
+                    <ShoppingCart size={20} />
+                </button>
+                <button className="w-12 h-12 rounded-full bg-white text-slate-900 flex items-center justify-center hover:text-rose-500 transition-all shadow-xl">
+                    <Heart size={20} />
+                </button>
+            </div>
         </div>
       </div>
-    </div>
+
+      {/* Content */}
+      <div className="p-6 pt-2 space-y-4">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+             <span className="text-[10px] font-black text-primary-600 uppercase tracking-widest">{product.brand}</span>
+             <div className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
+             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{product.condition || 'New'}</span>
+          </div>
+          <Link href={`/shop/${product._id}`} className="block">
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-primary-600 transition-colors truncate tracking-tight pr-6 relative">
+              {product.name}
+              <ArrowUpRight size={14} className="absolute right-0 top-1.5 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all" />
+            </h3>
+          </Link>
+        </div>
+
+        <div className="flex items-end justify-between">
+           <div className="flex flex-col">
+              <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">
+                ${product.price ? product.price.toLocaleString() : '0'}
+              </span>
+              {product.originalPrice && (
+                <span className="text-xs text-slate-400 line-through font-bold">
+                    ${product.originalPrice.toLocaleString()}
+                </span>
+              )}
+           </div>
+           
+           <button 
+             onClick={() => addToCart(product)}
+             className="px-5 py-2.5 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-95 shadow-lg shadow-slate-900/10 dark:shadow-none"
+           >
+             Add +
+           </button>
+        </div>
+      </div>
+    </motion.div>
   );
 }
