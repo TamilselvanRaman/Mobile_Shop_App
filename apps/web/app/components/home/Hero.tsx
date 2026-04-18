@@ -37,29 +37,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[95vh] md:h-[850px] w-full bg-[#f8f9ff] overflow-hidden flex items-center pt-24 md:pt-0">
-      {/* Dynamic Color Blobs */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <motion.div 
-           animate={{ 
-             scale: [1, 1.2, 1],
-             rotate: [0, 90, 0],
-             opacity: [0.4, 0.6, 0.4]
-           }}
-           transition={{ duration: 15, repeat: Infinity }}
-           className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-gradient-to-br from-cyan-200/50 via-indigo-200/50 to-purple-200/50 blur-[150px] rounded-full" 
-        />
-        <motion.div 
-           animate={{ 
-             scale: [1, 1.3, 1],
-             rotate: [0, -90, 0],
-             opacity: [0.3, 0.5, 0.3]
-           }}
-           transition={{ duration: 18, repeat: Infinity, delay: 2 }}
-           className="absolute bottom-[-20%] left-[-10%] w-[700px] h-[700px] bg-gradient-to-tr from-rose-200/40 via-orange-100/40 to-yellow-100/40 blur-[150px] rounded-full" 
-        />
-      </div>
-
+    <section className="relative min-h-[95vh] md:h-[850px] w-full bg-transparent overflow-hidden flex items-center pt-24 md:pt-0">
       {/* 3D Visualizer */}
       <div className="absolute inset-0 z-1 opacity-40 md:opacity-60 mix-blend-multiply">
          <ThreeScene />

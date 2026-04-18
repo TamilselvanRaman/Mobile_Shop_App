@@ -7,13 +7,7 @@ import { Container } from "@mobile-shop/ui";
 
 export function Features() {
   return (
-    <section className="py-24 bg-[#fdfdff] text-slate-900 relative overflow-hidden">
-      {/* Dynamic Background Accents */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-blue-100/30 blur-[130px]" />
-          <div className="absolute top-[40%] -right-[10%] w-[50%] h-[50%] rounded-full bg-purple-100/30 blur-[130px]" />
-          <div className="absolute bottom-[-10%] left-[20%] w-[30%] h-[30%] rounded-full bg-cyan-100/30 blur-[100px]" />
-      </div>
+    <section className="py-24 bg-transparent text-slate-900 relative overflow-hidden">
 
       <Container className="relative z-10">
         <div className="mb-20 text-center max-w-4xl mx-auto space-y-4">

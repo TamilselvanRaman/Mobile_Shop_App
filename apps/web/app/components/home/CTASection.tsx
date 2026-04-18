@@ -7,26 +7,10 @@ import { motion } from "framer-motion";
 
 export function CTASection() {
   return (
-    <section className="py-24 relative overflow-hidden bg-indigo-50/50">
-      {/* Background with Gradient and Blobs */}
+    <section className="py-24 relative overflow-hidden bg-transparent">
+      {/* Background with Gradient Overlay */}
       <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white via-indigo-50 to-white opacity-80" />
-          <motion.div 
-             animate={{ 
-                 scale: [1, 1.2, 1],
-                 opacity: [0.1, 0.2, 0.1],
-             }}
-             transition={{ duration: 8, repeat: Infinity }}
-             className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[120px]" 
-          />
-          <motion.div 
-             animate={{ 
-                 scale: [1, 1.1, 1],
-                 opacity: [0.05, 0.15, 0.05],
-             }}
-             transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-             className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]" 
-          />
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-50/50 via-white/20 to-indigo-50/50 opacity-80" />
       </div>
 
       <Container className="relative z-10 text-center max-w-4xl mx-auto">
