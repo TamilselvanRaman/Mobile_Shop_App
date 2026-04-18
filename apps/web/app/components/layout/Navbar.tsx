@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Container, Button } from "@mobile-shop/ui";
-import { ShoppingBag, Wrench, Menu, X, ChevronRight } from "lucide-react";
+import { ShoppingBag, Wrench, Menu, X, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
@@ -20,9 +20,9 @@ export function Navbar() {
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Check auth
-    const token = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
+    // Initial check
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    const storedUser = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
     if (token && storedUser) {
         try {
             setUser(JSON.parse(storedUser));
@@ -42,40 +42,37 @@ export function Navbar() {
   };
 
   const navLinks = [
-    { href: "/shop", label: "Shop", icon: ShoppingBag },
-    { href: "/services", label: "Services", icon: Wrench },
+    { href: "/shop", label: "Shop", icon: ShoppingBag, desc: "Latest devices" },
+    { href: "/services", label: "Services", icon: Wrench, desc: "Expert support" },
   ];
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
         scrolled
           ? "bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 py-3 shadow-sm"
           : "bg-transparent border-b border-transparent py-5"
       )}
     >
-      {/* Scroll Progress Line */}
-      <motion.div 
-        className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent w-full" 
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={{ scaleX: scrolled ? 1 : 0, opacity: scrolled ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-      />
       <Container className="flex items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2 z-50">
+        {/* Logo */}
+        <Link href="/" className="group flex items-center gap-2 z-[110]">
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform">
             M
           </div>
-          <span className="font-black text-xl tracking-tight text-slate-900 dark:text-white uppercase">
+          <span className={cn(
+              "font-black text-xl tracking-tight uppercase",
+              (scrolled || mobileMenuOpen) ? "text-slate-900 dark:text-white" : "text-white"
+          )}>
             MobileShop<span className="text-indigo-600">.</span>
           </span>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Original Desktop Nav Pill */}
         <nav className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-900/50 p-1.5 rounded-full border border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm">
           {navLinks.map((link) => {
-            const isActive = pathname.startsWith(link.href);
+            const isActive = pathname?.startsWith(link.href) ?? false;
             const Icon = link.icon;
             
             return (
@@ -83,10 +80,12 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2",
+                  "relative px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2",
                   isActive
                     ? "text-white"
-                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-slate-800/50"
+                    : scrolled 
+                        ? "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                        : "text-white/70 hover:text-white"
                 )}
               >
                 {isActive && (
@@ -105,30 +104,26 @@ export function Navbar() {
           })}
         </nav>
 
-        {/* Actions */}
+        {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
           {user ? (
             <div className="flex items-center gap-4">
-                {user.role === 'admin' ? (
-                    <Link href="/admin">
-                        <Button 
-                            className="rounded-full px-6 bg-indigo-600 text-white hover:bg-indigo-700 font-semibold shadow-lg shadow-indigo-500/20 active:scale-95 transition-all"
-                        >
-                            Admin Panel
-                        </Button>
-                    </Link>
-                ) : (
-                    <Link href="/account">
-                        <Button 
-                            className="rounded-full px-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 font-semibold shadow-lg shadow-slate-900/20 active:scale-95 transition-all"
-                        >
-                            My Profile
-                        </Button>
-                    </Link>
-                )}
+                <Link href={user.role === 'admin' ? "/admin" : "/account"}>
+                    <Button 
+                        className={cn(
+                            "rounded-full px-6 font-semibold shadow-lg active:scale-95 transition-all",
+                            scrolled ? "bg-indigo-600 text-white" : "bg-white text-slate-900"
+                        )}
+                    >
+                        {user.role === 'admin' ? "Admin Panel" : "My Profile"}
+                    </Button>
+                </Link>
                 <button 
                     onClick={handleLogout}
-                    className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-red-500 transition-colors"
+                    className={cn(
+                        "text-sm font-semibold transition-colors",
+                        scrolled ? "text-slate-600 dark:text-slate-400 hover:text-red-500" : "text-white/80 hover:text-red-400"
+                    )}
                 >
                     Sign Out
                 </button>
@@ -137,14 +132,20 @@ export function Navbar() {
             <>
                 <Link
                     href="/login"
-                    className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                    className={cn(
+                        "text-sm font-semibold transition-colors",
+                        scrolled ? "text-slate-600 dark:text-slate-400 hover:text-indigo-600" : "text-white/80 hover:text-white"
+                    )}
                 >
                     Sign In
                 </Link>
                 <Link href="/register">
                     <Button
                     size="sm"
-                    className="rounded-full px-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 font-semibold shadow-lg shadow-slate-900/20 active:scale-95 transition-all"
+                    className={cn(
+                        "rounded-full px-6 font-semibold shadow-lg active:scale-95 transition-all",
+                        scrolled ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900" : "bg-white text-slate-900"
+                    )}
                     >
                     Get Started <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>
@@ -153,78 +154,104 @@ export function Navbar() {
           )}
         </div>
 
-        {/* Mobile Filter Button */}
+        {/* Mobile Toggle */}
         <button
-          className="md:hidden p-2 text-slate-600 dark:text-slate-400 z-50"
+          className={cn(
+              "md:hidden p-3 rounded-2xl transition-all relative z-[110]",
+              mobileMenuOpen 
+                ? "bg-indigo-600 text-white" 
+                : scrolled 
+                    ? "text-slate-900 dark:text-white" 
+                    : "bg-white/10 text-white backdrop-blur-md"
+          )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X /> : <Menu />}
+          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
 
-        {/* Mobile Menu Overlay */}
-        {mobileMenuOpen && (
-            <motion.div 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="fixed inset-0 top-0 z-40 bg-white dark:bg-slate-950 px-6 pt-24 pb-10 flex flex-col md:hidden"
-            >
-                <nav className="flex flex-col gap-6 text-lg font-medium">
-                     {navLinks.map((link) => (
-                        <Link 
-                            key={link.href} 
-                            href={link.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800"
+        {/* Premium Mobile Menu Overlay */}
+        <AnimatePresence>
+            {mobileMenuOpen && (
+                <motion.div
+                    initial={{ opacity: 0, x: "100%" }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: "100%" }}
+                    transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                    className="fixed inset-0 z-[105] bg-white dark:bg-slate-950 md:hidden flex flex-col"
+                >
+                    <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
+                        <div className="absolute top-[-5%] right-[-5%] w-64 h-64 bg-indigo-500/20 blur-[100px] rounded-full" />
+                    </div>
+
+                    <div className="relative z-10 flex flex-col h-full pt-24 px-6 pb-10">
+                        <div className="flex-1 space-y-8">
+                            <section>
+                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-6 block">Explore</span>
+                                <div className="space-y-3">
+                                    {navLinks.map((link, idx) => (
+                                        <motion.div
+                                            key={link.href}
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.1 + idx * 0.1 }}
+                                        >
+                                            <Link 
+                                                href={link.href}
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="flex items-center justify-between p-5 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800"
+                                            >
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-12 h-12 rounded-2xl bg-indigo-600/10 flex items-center justify-center text-indigo-600">
+                                                        <link.icon size={24} />
+                                                    </div>
+                                                    <div>
+                                                        <span className="block font-black text-lg text-slate-900 dark:text-white">{link.label}</span>
+                                                        <span className="text-xs text-slate-400">{link.desc}</span>
+                                                    </div>
+                                                </div>
+                                                <ChevronRight size={18} className="text-slate-300" />
+                                            </Link>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </section>
+                        </div>
+
+                        <motion.div 
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-4"
                         >
-                            <div className="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                                <link.icon className="w-5 h-5" />
-                            </div>
-                            {link.label}
-                        </Link>
-                     ))}
-                </nav>
-                <div className="mt-auto flex flex-col gap-4">
-                    {user ? (
-                        <>
-                            {user.role === 'admin' ? (
-                                <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
-                                    <Button className="w-full justify-center h-12 text-base bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-lg shadow-indigo-500/30">
-                                        Admin Panel
-                                    </Button>
-                                </Link>
+                            {user ? (
+                                <div className="space-y-3">
+                                    <Link href={user.role === 'admin' ? "/admin" : "/account"} onClick={() => setMobileMenuOpen(false)}>
+                                        <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold">
+                                            {user.role === 'admin' ? "Open Dashboard" : "View Profile"}
+                                        </Button>
+                                    </Link>
+                                    <button 
+                                        onClick={handleLogout}
+                                        className="w-full h-14 rounded-2xl border border-red-100 dark:border-red-900/30 text-red-500 font-bold"
+                                    >
+                                        Sign Out
+                                    </button>
+                                </div>
                             ) : (
-                                <Link href="/account" onClick={() => setMobileMenuOpen(false)}>
-                                    <Button className="w-full justify-center h-12 text-base bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl">
-                                        My Profile
-                                    </Button>
-                                </Link>
+                                <div className="flex gap-4">
+                                    <Link href="/login" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                                        <Button variant="outline" className="w-full h-14 rounded-2xl font-bold">Sign In</Button>
+                                    </Link>
+                                    <Link href="/register" className="flex-[1.5]" onClick={() => setMobileMenuOpen(false)}>
+                                        <Button className="w-full h-14 rounded-2xl bg-indigo-600 text-white font-bold">Join Now</Button>
+                                    </Link>
+                                </div>
                             )}
-                            <Button 
-                                variant="outline" 
-                                onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
-                                className="w-full justify-center h-12 text-base rounded-xl text-red-500 border-red-200 hover:bg-red-50"
-                            >
-                                Sign Out
-                            </Button>
-                        </>
-                    ) : (
-                        <>
-                            <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                                <Button variant="outline" className="w-full justify-center h-12 text-base rounded-xl">
-                                    Sign In
-                                </Button>
-                            </Link>
-                            <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
-                                <Button className="w-full justify-center h-12 text-base bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-lg shadow-indigo-500/30">
-                                    Get Started
-                                </Button>
-                            </Link>
-                        </>
-                    )}
-                </div>
-            </motion.div>
-        )}
+                        </motion.div>
+                    </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
       </Container>
     </header>
   );
