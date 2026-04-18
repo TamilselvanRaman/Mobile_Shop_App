@@ -23,16 +23,18 @@ export function Features() {
             viewport={{ once: true }}
             className="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-black uppercase tracking-[0.2em]"
           >
-            Excellence Defined
+            Our Values
           </motion.div>
+          {/* Headline - RESTORED CONTENT */}
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-4xl md:text-6xl font-black tracking-tight leading-tight"
           >
-            The Full <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Color Spectrum.</span>
+            Why Choose <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">MobileShop?</span>
           </motion.h2>
+          {/* Description - RESTORED CONTENT */}
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -40,21 +42,21 @@ export function Features() {
             transition={{ delay: 0.1 }}
             className="text-xl text-slate-500 max-w-2xl mx-auto font-medium"
           >
-            Our core values are as vibrant as our products. We bring color and quality to every interaction.
+            We combine premium products with expert service to define the future of mobile retail.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[340px]">
-          {/* Feature 1: Cyan/Blue Theme */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[360px]">
+          {/* Feature 1 - RESTORED CONTENT */}
           <SpotlightCard className="md:col-span-2 group border-blue-50 bg-white/70 backdrop-blur-sm">
              <div className="relative z-10 h-full flex flex-col justify-between p-10">
                 <div className="w-16 h-16 rounded-[2rem] bg-blue-50 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 shadow-inner">
                    <Smartphone className="w-8 h-8 text-blue-600 group-hover:text-white" />
                 </div>
                 <div>
-                   <h3 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Vivid Displays</h3>
+                   <h3 className="text-3xl font-black text-slate-900 mb-3 tracking-tight">Premium Flagships</h3>
                    <p className="text-slate-500 text-lg leading-relaxed max-w-md font-medium">
-                      Discover devices with industry-leading color accuracy and brightness. From Super Retina to Dynamic AMOLED.
+                      Experience the latest technology with our curated selection of flagship devices from Apple, Samsung, and Google. Always authentic, always the newest.
                    </p>
                 </div>
                 <div className="absolute right-[-10%] bottom-[-10%] opacity-[0.05] group-hover:opacity-[0.15] group-hover:rotate-[15deg] transition-all duration-700">
@@ -63,21 +65,22 @@ export function Features() {
              </div>
           </SpotlightCard>
 
-          {/* Feature 2: Purple Theme */}
+          {/* Feature 2 - RESTORED CONTENT */}
           <SpotlightCard className="md:row-span-2 group border-purple-50 bg-white/70 backdrop-blur-sm">
              <div className="relative z-10 h-full flex flex-col p-10">
                 <div className="w-16 h-16 rounded-[2rem] bg-purple-50 flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-500 shadow-inner">
                    <ShieldCheck className="w-8 h-8 text-purple-600 group-hover:text-white" />
                 </div>
-                <h3 className="text-3xl font-black text-slate-900 mb-5 tracking-tight">Bulletproof Care</h3>
+                <h3 className="text-3xl font-black text-slate-900 mb-5 tracking-tight">Certified & Secure</h3>
                 <p className="text-slate-500 text-lg leading-relaxed mb-8 font-medium">
-                   Our warranty service is as bright as our shop. We cover every pixel and every circuit.
+                   Every device undergoes a 40-point inspection. We offer a comprehensive 12-month warranty on all products and repairs.
                 </p>
                 <div className="space-y-4 mt-auto">
                     {[
-                        { label: "12-Month Coverage", color: "bg-purple-500" },
-                        { label: "OLED Screen Guard", color: "bg-indigo-500" },
-                        { label: "Master Technicians", color: "bg-blue-500" }
+                        { label: "12-Month Warranty", color: "bg-purple-500" },
+                        { label: "Data Security Guaranteed", color: "bg-indigo-500" },
+                        { label: "Original Parts Only", color: "bg-blue-500" },
+                        { label: "Certified Technicians", color: "bg-cyan-500" }
                     ].map((item, i) => (
                         <div key={i} className="flex items-center p-3 rounded-2xl bg-white border border-slate-50 shadow-sm">
                             <div className={`w-2 h-2 rounded-full ${item.color} mr-4`} />
@@ -88,31 +91,31 @@ export function Features() {
              </div>
           </SpotlightCard>
 
-          {/* Feature 3: Orange/Amber Theme */}
+          {/* Feature 3 - RESTORED CONTENT */}
           <SpotlightCard className="group border-amber-50 bg-white/70 backdrop-blur-sm">
              <div className="relative z-10 h-full flex flex-col justify-between p-10">
                 <div className="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-all shadow-inner">
-                   <Zap className="w-7 h-7 text-amber-600 group-hover:text-white" />
+                   <Truck className="w-7 h-7 text-amber-600 group-hover:text-white" />
                 </div>
                 <div>
-                   <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">Turbo Ship</h3>
+                   <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">Express Delivery</h3>
                    <p className="text-slate-500 font-medium">
-                      Lightning fast delivery in 24 hours. Insurance included on all parcels.
+                      Free next-day shipping on orders over $500. Fully insured and trackable.
                    </p>
                 </div>
              </div>
           </SpotlightCard>
 
-          {/* Feature 4: Green/Teal Theme */}
+          {/* Feature 4 - RESTORED CONTENT */}
           <SpotlightCard className="group border-teal-50 bg-white/70 backdrop-blur-sm">
              <div className="relative z-10 h-full flex flex-col justify-between p-10">
                 <div className="w-14 h-14 rounded-2xl bg-teal-50 flex items-center justify-center mb-4 group-hover:bg-teal-500 group-hover:text-white transition-all shadow-inner">
                    <Star className="w-7 h-7 text-teal-600 group-hover:text-white" />
                 </div>
                 <div>
-                   <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">Super Values</h3>
+                   <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight">Trade-In Value</h3>
                    <p className="text-slate-500 font-medium">
-                      Trade in your old device and get a colorful discount on the newest gear.
+                      Get the best market rates for your old devices when you upgrade with us.
                    </p>
                 </div>
              </div>

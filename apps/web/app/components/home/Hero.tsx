@@ -58,7 +58,6 @@ export function Hero() {
            transition={{ duration: 18, repeat: Infinity, delay: 2 }}
            className="absolute bottom-[-20%] left-[-10%] w-[700px] h-[700px] bg-gradient-to-tr from-rose-200/40 via-orange-100/40 to-yellow-100/40 blur-[150px] rounded-full" 
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_0%,transparent_70%)]" />
       </div>
 
       {/* 3D Visualizer */}
@@ -75,59 +74,58 @@ export function Hero() {
             initial="hidden"
             animate="visible"
           >
-            {/* Vibrant Badge */}
+            {/* Badge - RESTORED CONTENT */}
             <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
               <div className="inline-flex items-center rounded-full border border-indigo-200 bg-white/70 px-5 py-2 text-xs sm:text-sm font-black uppercase tracking-widest text-indigo-600 backdrop-blur-xl shadow-xl shadow-indigo-100/50">
                 <Sparkles className="h-4 w-4 mr-2 text-indigo-500 animate-pulse" />
-                Next-Gen Mobile Collection
+                New Arrivals: iPhone 15 Series
               </div>
             </motion.div>
 
-            {/* Multi-Color Headline */}
+            {/* Headline - RESTORED CONTENT */}
             <motion.h1 
               variants={itemVariants}
-              className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter text-slate-900 leading-[0.95]"
+              className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter text-slate-900 leading-[1.05]"
             >
-              The Full <br className="hidden sm:block"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 animate-gradient-x leading-normal">
-                Color Era.
+              Future Tech <br className="hidden sm:block"/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 leading-normal">
+                 In Your Hands
               </span>
             </motion.h1>
 
-            {/* Description */}
+            {/* Description - RESTORED CONTENT */}
             <motion.p 
               variants={itemVariants}
               className="text-lg sm:text-2xl text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
             >
-              Immerse yourself in vibrancy. Experience master-level craftsmanship and the most vivid mobile tech collection today.
+              Experience the latest visible technology with our premium collection of smartphones and accessories. Expert repairs, guaranteed.
             </motion.p>
 
-            {/* Vibrant Buttons */}
+            {/* Buttons - RESTORED STYLE with ORIGINAL LABELS */}
             <motion.div 
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 pt-4"
             >
               <Link href="/shop" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto h-16 px-12 text-xl rounded-2xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 text-white shadow-[0_20px_40px_rgba(79,70,229,0.3)] border-0 hover:scale-105 transition-transform duration-300">
-                  Explore Now
+                  Shop Now
                 </Button>
               </Link>
               <Link href="/services" className="w-full sm:w-auto">
                 <Button size="lg" variant="ghost" className="w-full sm:w-auto h-16 px-12 text-xl rounded-2xl border-2 border-slate-200 bg-white/50 backdrop-blur-md text-slate-900 hover:bg-white shadow-sm transition-all">
-                  Service Hub <ArrowRight className="ml-2 w-6 h-6" />
+                  Book Repair <ArrowRight className="ml-2 w-6 h-6" />
                 </Button>
               </Link>
             </motion.div>
             
-            {/* Interactive Stats Grid */}
+            {/* Stats Grid - RESTORED ORIGINAL LABELS */}
             <motion.div 
                variants={itemVariants}
-               className="pt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 border-t border-slate-200/60"
+               className="pt-12 grid grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 border-t border-slate-200/60"
             >
-               <StatItem icon={Zap} to={50} suffix="k+" label="Customers" color="text-blue-600" />
-               <StatItem icon={Star} to={4.9} decimals={1} suffix="/5" label="Rating" color="text-yellow-500" />
-               <StatItem icon={Shield} to={100} suffix="%" label="Secure" color="text-green-600" className="hidden sm:flex" />
-               <StatItem icon={Sparkles} to={24} suffix="h" label="Fast Fix" color="text-purple-600" className="hidden lg:flex" />
+               <StatItem icon={Zap} to={50} suffix="k+" label="Happy Customers" color="text-blue-600" />
+               <StatItem icon={Star} to={4.9} decimals={1} suffix="/5" label="Average Rating" color="text-yellow-500" />
+               <StatItem icon={Sparkles} to={24} suffix="h" label="Repair Turnaround" color="text-purple-600" />
             </motion.div>
 
           </motion.div>

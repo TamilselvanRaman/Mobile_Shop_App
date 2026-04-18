@@ -41,10 +41,12 @@ export function CTASection() {
                   <Sparkles className="w-4 h-4" /> <span>Experience the Future</span>
               </div>
               
+              {/* Headline - RESTORED CONTENT */}
               <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-tight">
                   Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Upgrade?</span>
               </h2>
               
+              {/* Description - RESTORED CONTENT */}
               <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed font-medium">
                   Join thousands of satisfied customers who trust MobileShop for their premium tech needs. 
                   Expert service, genuine parts, and unbeatable prices.
