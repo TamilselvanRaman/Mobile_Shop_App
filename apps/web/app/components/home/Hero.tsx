@@ -37,14 +37,14 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[95vh] md:h-[850px] w-full bg-transparent overflow-hidden flex items-center pt-24 md:pt-0">
+    <section className="relative min-h-[95vh] md:h-[850px] w-full bg-transparent overflow-hidden flex items-start md:items-center pt-32 sm:pt-40 md:pt-0">
       {/* 3D Visualizer */}
       <div className="absolute inset-0 z-1 opacity-40 md:opacity-60 mix-blend-multiply">
          <ThreeScene />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full md:mt-12">
         <Container>
           <motion.div 
             className="max-w-4xl mx-auto lg:mx-0 text-center lg:text-left space-y-8"
