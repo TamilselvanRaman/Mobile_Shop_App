@@ -1,121 +1,134 @@
 "use client";
 
 import { Container, Button } from "@mobile-shop/ui";
-import { ArrowRight, Sparkles, ShoppingBag, ShieldCheck, Zap, Star } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { CountUp } from "../ui/CountUp";
 
 const ThreeScene = dynamic(() => import("../3d/Scene").then((mod) => mod.ThreeScene), { 
   ssr: false,
-  loading: () => <div className="absolute inset-0 bg-slate-900/10 backdrop-blur-sm animate-pulse rounded-[3rem]" />
+  loading: () => <div className="absolute inset-0 bg-slate-900/10 backdrop-blur-sm animate-pulse rounded-3xl" />
 });
 
 export function Hero() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    },
+  };
 
   return (
-    <section className="relative min-h-screen w-full bg-slate-950 overflow-hidden flex items-center selection:bg-primary-500/30">
-      {/* Premium Background Layers */}
-      <div className="absolute inset-0 z-0">
-        {/* Animated Mesh Gradient */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[80%] h-[80%] bg-primary-600/20 blur-[120px] rounded-full mix-blend-screen animate-pulse" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-indigo-600/20 blur-[120px] rounded-full mix-blend-screen animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100%] h-[100%] bg-slate-950" />
-        </div>
-        
-        {/* Subtle Grid Overlay */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 contrast-150 brightness-100 mix-blend-multiply pointer-events-none" />
-        
-        {/* 3D Model Layer with Parallax */}
-        <motion.div 
-            style={{ y: y1, opacity }}
-            className="absolute inset-0 z-10 hidden lg:block"
-        >
-           <ThreeScene />
-        </motion.div>
+    <section className="relative min-h-[90vh] md:min-h-screen w-full bg-slate-950 overflow-hidden flex items-center pt-24 md:pt-0">
+      {/* 3D Background Layer */}
+      <div className="absolute inset-0 z-0 opacity-40 md:opacity-60">
+         <ThreeScene />
       </div>
 
-      <Container className="relative z-20">
-        <div className="max-w-4xl mx-auto lg:mx-0 py-20 lg:py-0">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-10 text-center lg:text-left"
+      {/* Enhanced Color Accents (The "Light Change" requested) */}
+      <div className="absolute inset-0 pointer-events-none z-5">
+        <div className="absolute top-[-10%] right-[-10%] w-[700px] h-[700px] bg-primary-500/15 blur-[150px] rounded-full animate-pulse" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/15 blur-[150px] rounded-full" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 w-full">
+        <Container>
+          <motion.div 
+            className="max-w-4xl mx-auto lg:mx-0 text-center lg:text-left space-y-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
           >
-            {/* Elite Badge */}
-            <div className="flex justify-center lg:justify-start">
-               <motion.div 
-                whileHover={{ scale: 1.05 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl relative group cursor-default"
-               >
-                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-indigo-500/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                 <Sparkles className="h-4 w-4 text-primary-400 animate-pulse" />
-                 <span className="text-xs font-black uppercase tracking-[0.2em] text-white/80">Premium Mobile Experience</span>
-               </motion.div>
-            </div>
+            {/* Badge */}
+            <motion.div variants={itemVariants} className="flex justify-center lg:justify-start">
+              <div className="inline-flex items-center rounded-full border border-primary-500/30 bg-primary-500/10 px-4 py-1.5 text-xs sm:text-sm font-bold text-primary-300 backdrop-blur-xl">
+                <Sparkles className="h-3.5 w-3.5 mr-2 text-primary-400" />
+                New Arrivals: iPhone 15 Pro Max
+              </div>
+            </motion.div>
 
-            {/* Cinematic Headline */}
-            <div className="space-y-4">
-               <h1 className="text-5xl sm:text-7xl lg:text-9xl font-black tracking-tighter text-white leading-[0.85] font-display">
-                 BEYOND <br />
-                 <span className="text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-white/20">
-                    EXPECTATION.
-                 </span>
-               </h1>
-               <div className="h-1.5 w-40 bg-gradient-to-r from-primary-600 to-transparent rounded-full mx-auto lg:mx-0 mt-6" />
-            </div>
+            {/* Headline (Reverted to original) */}
+            <motion.h1 
+              variants={itemVariants}
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-white leading-[1.1]"
+            >
+              The Next Era <br className="hidden sm:block"/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 via-indigo-400 to-violet-400">
+                Of Mobile.
+              </span>
+            </motion.h1>
 
-            {/* Descriptions */}
-            <p className="max-w-xl text-lg sm:text-xl text-slate-400 font-medium leading-relaxed mx-auto lg:mx-0">
-              Discover a curated collection of world-class mobile technology. 
-              Certified devices, precision repairs, and bespoke accessories for the modern digital pioneer.
-            </p>
+            {/* Description */}
+            <motion.p 
+              variants={itemVariants}
+              className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium"
+            >
+              Premium devices, genuine accessories, and master-level repairs. 
+              Elevate your mobile experience with MobileShop.
+            </motion.p>
 
-            {/* High-Impact Actions */}
-            <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
+            {/* Buttons */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
+            >
               <Link href="/shop" className="w-full sm:w-auto">
-                <Button className="w-full sm:w-auto h-16 px-12 rounded-[2rem] bg-white text-slate-950 border-none font-black text-lg transition-all hover:scale-[1.05] active:scale-95 shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)] flex items-center justify-center group">
-                  EXPLORE SHOP 
-                  <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                <Button size="lg" className="w-full sm:w-auto h-14 px-10 text-lg rounded-2xl bg-primary-600 hover:bg-primary-700 text-white shadow-2xl shadow-primary-500/40 border-0 group">
+                  Explore Shop
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/services" className="w-full sm:w-auto">
-                <Button variant="ghost" className="w-full sm:w-auto h-16 px-12 rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-md text-white font-black text-lg hover:bg-white/10 transition-all flex items-center justify-center">
-                  <ShieldCheck className="mr-3 h-5 w-5 text-primary-400" />
-                  SERVICE CENTER
+                <Button size="lg" variant="ghost" className="w-full sm:w-auto h-14 px-10 text-lg rounded-2xl border border-white/10 text-white hover:bg-white/5 backdrop-blur-sm">
+                  Service Center
                 </Button>
               </Link>
-            </div>
+            </motion.div>
+            
+            {/* Stats */}
+            <motion.div 
+               variants={itemVariants}
+               className="pt-12 grid grid-cols-2 md:grid-cols-3 gap-8 border-t border-white/10 max-w-3xl"
+            >
+               <StatBox to={50} suffix="k+" label="Customers" />
+               <StatBox to={4.9} decimals={1} suffix="/5" label="Top Rated" />
+               <StatBox to={24} suffix="h" label="Fast Fix" className="hidden md:block" />
+            </motion.div>
 
-            {/* Trust Metrics */}
-            <div className="pt-16 border-t border-white/5 grid grid-cols-2 md:grid-cols-3 gap-10 max-w-2xl">
-              <StatItem label="Active Users" value="50" suffix="k+" />
-              <StatItem label="Client Rating" value="4.9" suffix="/5" decimals={1} />
-              <StatItem label="Fast Support" value="24" suffix="h" className="hidden md:block" />
-            </div>
           </motion.div>
-        </div>
-      </Container>
-      
-      {/* Ambient Side Decor */}
-      <div className="absolute right-0 top-0 h-full w-1/4 bg-gradient-to-l from-primary-600/10 to-transparent pointer-events-none" />
+        </Container>
+      </div>
     </section>
   );
 }
 
-function StatItem({ value, label, suffix = "", decimals = 0, className = "" }: any) {
-  return (
-    <div className={`space-y-1 ${className}`}>
-      <div className="text-3xl font-black text-white tracking-tighter flex items-baseline">
-        <CountUp to={Number(value)} decimals={decimals} suffix={suffix} />
-      </div>
-      <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">{label}</div>
-    </div>
-  );
+function StatBox({ to, decimals = 0, suffix = "", label, className = "" }: any) {
+    return (
+        <div className={className}>
+            <div className="text-2xl sm:text-3xl font-black text-white flex items-baseline">
+                <CountUp to={to} decimals={decimals} suffix={suffix} />
+            </div>
+            <div className="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-widest">{label}</div>
+        </div>
+    )
 }
