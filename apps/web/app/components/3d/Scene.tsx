@@ -7,7 +7,7 @@ import { PhoneModel } from "./PhoneModel";
 
 export function ThreeScene() {
   return (
-    <div className="h-screen w-full relative bg-slate-50 dark:bg-slate-950">
+    <div className="h-full w-full relative">
       <Canvas shadows dpr={[1, 2]} camera={{ position: [2, 0, 5], fov: 45 }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.5} />
