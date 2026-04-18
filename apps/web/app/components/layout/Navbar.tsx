@@ -51,26 +51,26 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
         scrolled
-          ? "bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 py-3 shadow-sm"
-          : "bg-transparent border-b border-transparent py-5"
+          ? "bg-white/80 backdrop-blur-xl border-b border-slate-200/50 py-3 shadow-sm"
+          : "bg-transparent py-5"
       )}
     >
       <Container className="flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2 z-[110]">
-          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform">
+          <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
             M
           </div>
           <span className={cn(
-              "font-black text-xl tracking-tight uppercase",
-              (scrolled || mobileMenuOpen) ? "text-slate-900 dark:text-white" : "text-white"
+              "font-black text-xl tracking-tight uppercase transition-colors",
+              (scrolled || mobileMenuOpen) ? "text-slate-900" : "text-slate-900"
           )}>
             MobileShop<span className="text-indigo-600">.</span>
           </span>
         </Link>
 
-        {/* Original Desktop Nav Pill */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-900/50 p-1.5 rounded-full border border-slate-200/50 dark:border-slate-800/50 backdrop-blur-sm">
+        {/* Original Desktop Nav Pill - Adjusted for Light Theme */}
+        <nav className="hidden md:flex items-center gap-1 bg-white/50 p-1.5 rounded-full border border-slate-200/50 backdrop-blur-md shadow-sm">
           {navLinks.map((link) => {
             const isActive = pathname?.startsWith(link.href) ?? false;
             const Icon = link.icon;
@@ -80,18 +80,16 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2",
+                  "relative px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-2",
                   isActive
                     ? "text-white"
-                    : scrolled 
-                        ? "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
-                        : "text-white/70 hover:text-white"
+                    : "text-slate-500 hover:text-indigo-600"
                 )}
               >
                 {isActive && (
                     <motion.div
                         layoutId="nav-pill"
-                        className="absolute inset-0 bg-indigo-600 rounded-full shadow-md shadow-indigo-500/20"
+                        className="absolute inset-0 bg-indigo-600 rounded-full shadow-lg shadow-indigo-200"
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                 )}
@@ -110,20 +108,14 @@ export function Navbar() {
             <div className="flex items-center gap-4">
                 <Link href={user.role === 'admin' ? "/admin" : "/account"}>
                     <Button 
-                        className={cn(
-                            "rounded-full px-6 font-semibold shadow-lg active:scale-95 transition-all",
-                            scrolled ? "bg-indigo-600 text-white" : "bg-white text-slate-900"
-                        )}
+                        className="rounded-full px-6 font-bold shadow-md bg-slate-900 text-white hover:bg-slate-800 active:scale-95 transition-all"
                     >
                         {user.role === 'admin' ? "Admin Panel" : "My Profile"}
                     </Button>
                 </Link>
                 <button 
                     onClick={handleLogout}
-                    className={cn(
-                        "text-sm font-semibold transition-colors",
-                        scrolled ? "text-slate-600 dark:text-slate-400 hover:text-red-500" : "text-white/80 hover:text-red-400"
-                    )}
+                    className="text-sm font-bold text-slate-500 hover:text-red-500 transition-colors"
                 >
                     Sign Out
                 </button>
@@ -132,22 +124,16 @@ export function Navbar() {
             <>
                 <Link
                     href="/login"
-                    className={cn(
-                        "text-sm font-semibold transition-colors",
-                        scrolled ? "text-slate-600 dark:text-slate-400 hover:text-indigo-600" : "text-white/80 hover:text-white"
-                    )}
+                    className="text-sm font-bold text-slate-500 hover:text-indigo-600 transition-colors"
                 >
                     Sign In
                 </Link>
                 <Link href="/register">
                     <Button
-                    size="sm"
-                    className={cn(
-                        "rounded-full px-6 font-semibold shadow-lg active:scale-95 transition-all",
-                        scrolled ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900" : "bg-white text-slate-900"
-                    )}
+                        size="sm"
+                        className="rounded-full px-6 font-bold shadow-lg bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95 transition-all"
                     >
-                    Get Started <ChevronRight className="w-4 h-4 ml-1" />
+                        Get Started <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>
                 </Link>
             </>
@@ -157,12 +143,10 @@ export function Navbar() {
         {/* Mobile Toggle */}
         <button
           className={cn(
-              "md:hidden p-3 rounded-2xl transition-all relative z-[110]",
+              "md:hidden p-3 rounded-2xl transition-all relative z-[110] border",
               mobileMenuOpen 
-                ? "bg-indigo-600 text-white" 
-                : scrolled 
-                    ? "text-slate-900 dark:text-white" 
-                    : "bg-white/10 text-white backdrop-blur-md"
+                ? "bg-indigo-600 text-white border-transparent" 
+                : "bg-white border-slate-200 text-slate-900 shadow-sm"
           )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
@@ -173,14 +157,13 @@ export function Navbar() {
         <AnimatePresence>
             {mobileMenuOpen && (
                 <motion.div
-                    initial={{ opacity: 0, x: "100%" }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: "100%" }}
-                    transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                    className="fixed inset-0 z-[105] bg-white dark:bg-slate-950 md:hidden flex flex-col"
+                    initial={{ opacity: 0, scale: 1.1 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.1 }}
+                    className="fixed inset-0 z-[105] bg-white md:hidden flex flex-col"
                 >
                     <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
-                        <div className="absolute top-[-5%] right-[-5%] w-64 h-64 bg-indigo-500/20 blur-[100px] rounded-full" />
+                        <div className="absolute top-[-5%] right-[-5%] w-64 h-64 bg-indigo-500/10 blur-[100px] rounded-full" />
                     </div>
 
                     <div className="relative z-10 flex flex-col h-full pt-24 px-6 pb-10">
@@ -191,21 +174,21 @@ export function Navbar() {
                                     {navLinks.map((link, idx) => (
                                         <motion.div
                                             key={link.href}
-                                            initial={{ opacity: 0, x: 20 }}
-                                            animate={{ opacity: 1, x: 0 }}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.1 + idx * 0.1 }}
                                         >
                                             <Link 
                                                 href={link.href}
                                                 onClick={() => setMobileMenuOpen(false)}
-                                                className="flex items-center justify-between p-5 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800"
+                                                className="flex items-center justify-between p-5 rounded-[2rem] bg-slate-50 border border-slate-100"
                                             >
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 rounded-2xl bg-indigo-600/10 flex items-center justify-center text-indigo-600">
+                                                    <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
                                                         <link.icon size={24} />
                                                     </div>
                                                     <div>
-                                                        <span className="block font-black text-lg text-slate-900 dark:text-white">{link.label}</span>
+                                                        <span className="block font-black text-lg text-slate-900">{link.label}</span>
                                                         <span className="text-xs text-slate-400">{link.desc}</span>
                                                     </div>
                                                 </div>
@@ -221,18 +204,18 @@ export function Navbar() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.4 }}
-                            className="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-4"
+                            className="pt-8 border-t border-slate-100 flex flex-col gap-4"
                         >
                             {user ? (
                                 <div className="space-y-3">
                                     <Link href={user.role === 'admin' ? "/admin" : "/account"} onClick={() => setMobileMenuOpen(false)}>
-                                        <Button className="w-full h-14 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold">
+                                        <Button className="w-full h-14 rounded-2xl bg-slate-900 text-white font-bold shadow-lg">
                                             {user.role === 'admin' ? "Open Dashboard" : "View Profile"}
                                         </Button>
                                     </Link>
                                     <button 
                                         onClick={handleLogout}
-                                        className="w-full h-14 rounded-2xl border border-red-100 dark:border-red-900/30 text-red-500 font-bold"
+                                        className="w-full h-14 rounded-2xl border border-slate-200 text-slate-500 font-bold"
                                     >
                                         Sign Out
                                     </button>
@@ -240,10 +223,10 @@ export function Navbar() {
                             ) : (
                                 <div className="flex gap-4">
                                     <Link href="/login" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
-                                        <Button variant="outline" className="w-full h-14 rounded-2xl font-bold">Sign In</Button>
+                                        <Button variant="outline" className="w-full h-14 rounded-2xl font-bold border-slate-200">Sign In</Button>
                                     </Link>
                                     <Link href="/register" className="flex-[1.5]" onClick={() => setMobileMenuOpen(false)}>
-                                        <Button className="w-full h-14 rounded-2xl bg-indigo-600 text-white font-bold">Join Now</Button>
+                                        <Button className="w-full h-14 rounded-2xl bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-100">Join Now</Button>
                                     </Link>
                                 </div>
                             )}
