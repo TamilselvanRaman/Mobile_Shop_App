@@ -132,5 +132,5 @@ function StatBox({ to, decimals = 0, suffix = "", label, className = "" }: any) 
         </div>
     )
 }
- luxury animation support.
+
 

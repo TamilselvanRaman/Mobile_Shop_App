@@ -1,6 +1,4 @@
 import * as React from "react";
-import { cn } from "@apps/web/lib/utils"; // Wait, I can't import from apps in package. 
-// I'll just use template literals or a local helper.
 
 export interface LayoutProps {
   children?: React.ReactNode;
