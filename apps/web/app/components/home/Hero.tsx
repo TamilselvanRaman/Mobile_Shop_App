@@ -37,7 +37,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[95vh] md:h-[850px] w-full bg-transparent overflow-hidden flex items-start md:items-center pt-44 sm:pt-52 md:pt-0">
+    <section className="relative min-h-[95vh] md:h-[850px] w-full bg-transparent overflow-hidden flex items-start pt-36 sm:pt-44 md:pt-48 lg:pt-52 pb-20">
       {/* 3D Visualizer */}
       <div className="absolute inset-0 z-1 opacity-40 md:opacity-60 mix-blend-multiply">
          <ThreeScene />

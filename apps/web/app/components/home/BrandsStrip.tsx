@@ -23,11 +23,13 @@ export function BrandsStrip() {
           Authorized Retailer & Service Partner
         </p>
         
-        <div className="relative w-full flex items-center">
-          {/* Gradient Masks for fade-in/out effect */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
-
+        <div 
+          className="relative w-full flex items-center overflow-hidden"
+          style={{
+            maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)"
+          }}
+        >
           {/* Scrolling track */}
           <motion.div
             className="flex gap-16 sm:gap-24 items-center whitespace-nowrap"
