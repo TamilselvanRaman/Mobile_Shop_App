@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Container, Button, Card, Input } from "@mobile-shop/ui";
 import { Wrench, CheckCircle, Clock, Shield, ChevronRight, Zap } from "lucide-react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function ServicesPage() {
   const [formData, setFormData] = useState({
@@ -42,37 +43,63 @@ export default function ServicesPage() {
 
   if (submitted) {
     return (
-      <Container className="min-h-screen py-20 flex flex-col items-center justify-center text-center">
-        <motion.div 
-          initial={{ scale: 0 }} animate={{ scale: 1 }} 
-          className="h-24 w-24 bg-green-500/10 rounded-full flex items-center justify-center mb-6 ring-4 ring-green-500/20"
-        >
-           <CheckCircle className="h-12 w-12 text-green-500" />
-        </motion.div>
-        <motion.h1 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-extrabold text-slate-900 dark:text-white mb-4"
-        >
-            Booking Confirmed!
-        </motion.h1>
-        <motion.p 
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
-            className="text-slate-500 dark:text-slate-400 max-w-md mb-8 text-lg"
-        >
-          We&apos;ve received your repair request. Our technicians will review it and contact you shortly at <span className="text-indigo-500 font-semibold">{formData.email}</span>.
-        </motion.p>
-        <Button onClick={() => setSubmitted(false)} size="lg" className="rounded-full px-8">Book Another Repair</Button>
-      </Container>
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 relative overflow-hidden flex items-center justify-center pt-28">
+        {/* Ambient Background */}
+        <div className="absolute top-0 left-0 w-full h-[500px] bg-indigo-500/10 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] pointer-events-none" />
+
+        <Container className="relative z-10 py-20 flex flex-col items-center justify-center text-center max-w-xl bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800 p-10 sm:p-16 rounded-[2.5rem] shadow-2xl shadow-indigo-500/5 mx-4">
+          <motion.div 
+            initial={{ scale: 0 }} animate={{ scale: 1 }} 
+            className="h-24 w-24 bg-emerald-500/10 rounded-full flex items-center justify-center mb-8 ring-4 ring-emerald-500/20"
+          >
+             <CheckCircle className="h-12 w-12 text-emerald-500" />
+          </motion.div>
+          
+          <motion.h1 
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white mb-4 tracking-tight"
+          >
+              Booking Confirmed!
+          </motion.h1>
+          
+          <motion.p 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}
+              className="text-slate-500 dark:text-slate-400 max-w-sm mb-10 text-base leading-relaxed font-medium"
+          >
+            We&apos;ve received your repair request. Our technicians will review it and contact you shortly at <span className="text-indigo-600 dark:text-indigo-400 font-bold">{formData.email}</span>.
+          </motion.p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 w-full justify-center">
+            <Button 
+              onClick={() => setSubmitted(false)} 
+              size="lg" 
+              className="rounded-2xl px-6 h-12 bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all text-sm w-full sm:w-auto"
+            >
+              Book Another
+            </Button>
+            <Link href="/shop" className="w-full sm:w-auto">
+              <Button 
+                size="lg" 
+                variant="ghost"
+                className="rounded-2xl px-6 h-12 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-900 dark:text-white font-bold transition-all text-sm w-full"
+              >
+                Go to Shop
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 relative overflow-hidden pt-28 lg:pt-32">
       {/* Ambient Background */}
       <div className="absolute top-0 left-0 w-full h-[500px] bg-indigo-500/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/10 blur-[120px] pointer-events-none" />
 
-      <Container className="py-20 relative z-10">
+      <Container className="pb-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
           {/* Left Column: Info */}
@@ -90,7 +117,7 @@ export default function ServicesPage() {
                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500 dark:from-indigo-400 dark:to-blue-400">Back to Life.</span>
              </h1>
              
-             <p className="text-xl text-slate-600 dark:text-slate-300 mb-12 leading-relaxed max-w-xl">
+             <p className="text-lg text-slate-600 dark:text-slate-300 mb-12 leading-relaxed max-w-xl font-medium">
                From cracked screens to complex motherboard repairs, our certified technicians use genuine parts to restore your device to factory standards.
              </p>
 
@@ -122,7 +149,7 @@ export default function ServicesPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Card className="p-6 md:p-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-2xl shadow-indigo-500/10 rounded-3xl relative overflow-hidden">
+            <Card className="p-6 sm:p-8 md:p-10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-slate-200 dark:border-slate-800 shadow-2xl shadow-indigo-500/10 rounded-3xl relative overflow-hidden">
                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-blue-500" />
                
                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Book a Repair</h2>
@@ -201,6 +228,42 @@ export default function ServicesPage() {
             </Card>
           </motion.div>
         </div>
+
+        {/* Pricing Table Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-24 border-t border-slate-200/50 dark:border-slate-800 pt-16"
+        >
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-3 px-4">
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Transparent Estimations</h2>
+            <p className="text-slate-500 dark:text-slate-400 font-medium">Standard baseline pricing for our most common repair services. Diagnostic evaluation is completely free!</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { service: "Screen Replacement", price: "$49+", time: "1-2 Hours", desc: "For cracked glass, LCD bleeds, or dead touch displays." },
+              { service: "Battery Swap", price: "$29+", time: "30 Mins", desc: "For battery health degradation, bloating, or power cycle loops." },
+              { service: "Charging Port Fix", price: "$39+", time: "1 Hour", desc: "For loose ports, physical connector bend, or charging failures." },
+              { service: "Software Restore", price: "$19+", time: "30 Mins", desc: "For lockouts, continuous bootloops, or firmware updates." }
+            ].map((p, idx) => (
+              <div key={idx} className="bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-100 dark:border-slate-800/80 p-6 rounded-3xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/20 group flex flex-col justify-between">
+                <div className="absolute top-0 left-0 w-full h-[3px] bg-indigo-500/10 group-hover:bg-indigo-600 transition-colors" />
+                <div>
+                  <span className="text-[10px] font-black text-indigo-600 uppercase tracking-widest block mb-2">{p.time}</span>
+                  <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-2">{p.service}</h3>
+                  <p className="text-xs text-slate-400 mb-6 leading-relaxed font-medium">{p.desc}</p>
+                </div>
+                <div className="flex items-baseline gap-1 mt-auto">
+                  <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{p.price}</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase">est.</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </Container>
     </div>
   );
@@ -219,7 +282,7 @@ function Feature({ icon: Icon, title, desc, delay }: any) {
             </div>
             <div>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{title}</h3>
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{desc}</p>
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium text-sm">{desc}</p>
             </div>
         </motion.div>
     )

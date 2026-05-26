@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Container, Card, Button, Badge } from '@mobile-shop/ui';
-import { User, Package, Settings, LogOut, Loader2, ChevronRight, Box } from 'lucide-react';
+import { User, Package, Settings, LogOut, Loader2, ChevronRight, Box, Heart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -58,25 +58,32 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 pt-28 pb-12">
         <Container>
             <div className="flex flex-col md:flex-row gap-8">
                 {/* Sidebar Navigation */}
                 <div className="w-full md:w-72 shrink-0">
                     <Card className="sticky top-24 overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
-                        <div className="p-6 bg-slate-900 dark:bg-slate-950 text-white">
-                            <div className="flex items-center gap-4">
-                                <div className="h-12 w-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-lg font-bold shadow-lg shadow-indigo-500/30">
+                        <div className="p-6 bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950 text-white relative overflow-hidden">
+                            {/* Ambient light inside card */}
+                            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl pointer-events-none" />
+                            
+                            <div className="flex items-center gap-4 relative z-10">
+                                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-indigo-500 to-cyan-500 flex items-center justify-center text-xl font-bold shadow-lg shadow-indigo-500/20 border-2 border-white/10 shrink-0">
                                     {user?.name?.charAt(0) || 'U'}
                                 </div>
                                 <div className="overflow-hidden">
-                                    <div className="font-bold truncate">{user?.name}</div>
-                                    <div className="text-xs text-slate-400 truncate">{user?.email}</div>
+                                    <div className="font-black text-base truncate tracking-tight">{user?.name}</div>
+                                    <div className="text-xs text-slate-400 truncate mb-1.5">{user?.email}</div>
+                                    <span className="inline-flex text-[9px] font-black uppercase tracking-widest bg-indigo-500/25 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/30">
+                                      Member since 2024
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div className="p-2 space-y-1">
                             <NavButton active={activeTab === 'orders'} onClick={() => setActiveTab('orders')} icon={Package}>Orders</NavButton>
+                            <NavButton active={activeTab === 'wishlist'} onClick={() => setActiveTab('wishlist')} icon={Heart}>Wishlist</NavButton>
                             <NavButton active={activeTab === 'settings'} onClick={() => setActiveTab('settings')} icon={Settings}>Settings</NavButton>
                             <div className="my-2 border-t border-slate-100 dark:border-slate-800"></div>
                             <NavButton active={false} onClick={handleLogout} icon={LogOut} className="text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-600">Sign Out</NavButton>
@@ -88,10 +95,10 @@ export default function AccountPage() {
                 <div className="flex-1">
                     <div className="mb-8">
                         <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                            {activeTab === 'orders' ? 'My Orders' : 'Account Settings'}
+                            {activeTab === 'orders' ? 'My Orders' : activeTab === 'wishlist' ? 'My Wishlist' : 'Account Settings'}
                         </h1>
                         <p className="text-slate-500 dark:text-slate-400">
-                            {activeTab === 'orders' ? 'View and track your recent purchases.' : 'Manage your profile and preferences.'}
+                            {activeTab === 'orders' ? 'View and track your recent purchases.' : activeTab === 'wishlist' ? 'Your saved premium tech items.' : 'Manage your profile and preferences.'}
                         </p>
                     </div>
 
@@ -113,7 +120,7 @@ export default function AccountPage() {
                                         <p className="text-slate-500 max-w-sm mx-auto mb-6">
                                             Looks like you haven't placed any orders yet. Start shopping to see them here.
                                         </p>
-                                        <Button onClick={() => router.push('/shop')}>Start Shopping</Button>
+                                        <Button onClick={() => router.push('/shop')} className="rounded-2xl font-bold">Start Shopping</Button>
                                     </Card>
                                 ) : (
                                     orders.map((order) => (
@@ -142,8 +149,8 @@ export default function AccountPage() {
                                                 <div className="space-y-4">
                                                     {order.items.map((item: any, idx: number) => (
                                                         <div key={idx} className="flex items-center gap-4 py-2 border-b border-slate-50 dark:border-slate-800/50 last:border-0">
-                                                            <div className="h-12 w-12 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-400 text-xs font-medium">
-                                                                IMG
+                                                            <div className="h-12 w-12 bg-indigo-50 dark:bg-indigo-900/10 rounded-xl flex items-center justify-center text-indigo-500 dark:text-indigo-400 shrink-0">
+                                                                <Package size={20} />
                                                             </div>
                                                             <div className="flex-1">
                                                                 <div className="font-medium text-slate-900 dark:text-white">{item.productName}</div>
@@ -163,13 +170,31 @@ export default function AccountPage() {
                                                         ${order.totalAmount.toLocaleString()}
                                                     </span>
                                                 </div>
-                                                <Button size="sm" variant="outline" className="gap-2">
+                                                <Button size="sm" variant="outline" className="gap-2 rounded-xl font-bold">
                                                     View Details <ChevronRight size={14} />
                                                 </Button>
                                             </div>
                                         </Card>
                                     ))
                                 )}
+                            </motion.div>
+                        ) : activeTab === 'wishlist' ? (
+                            <motion.div
+                                key="wishlist"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                            >
+                                <Card className="p-12 text-center border-dashed border-2 border-slate-200 dark:border-slate-800 bg-transparent py-20 rounded-[2.5rem]">
+                                    <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                                        <Heart size={32} />
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">Your wishlist is empty</h3>
+                                    <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto mb-6">
+                                        Save products you are interested in by clicking the heart icon on any device card.
+                                    </p>
+                                    <Button onClick={() => router.push('/shop')} className="rounded-2xl font-bold">Explore Catalog</Button>
+                                </Card>
                             </motion.div>
                         ) : (
                             <motion.div
@@ -178,12 +203,12 @@ export default function AccountPage() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                             >
-                                <Card className="p-8 border-slate-200 dark:border-slate-800 text-center py-20">
+                                <Card className="p-8 border-slate-200 dark:border-slate-800 text-center py-20 rounded-[2.5rem]">
                                     <div className="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-400">
                                         <Settings size={40} />
                                     </div>
                                     <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">Settings Coming Soon</h3>
-                                    <p className="text-slate-500 max-w-md mx-auto">
+                                    <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
                                         We are currently building a comprehensive settings panel for you to manage your profile, security, and preferences.
                                     </p>
                                 </Card>

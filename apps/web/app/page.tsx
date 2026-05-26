@@ -3,6 +3,9 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Hero } from "./components/home/Hero";
 import { Features } from "./components/home/Features";
+import { BrandsStrip } from "./components/home/BrandsStrip";
+import { Testimonials } from "./components/home/Testimonials";
+import { Newsletter } from "./components/home/Newsletter";
 import { CTASection } from "./components/home/CTASection";
 
 export default function Home() {
@@ -13,6 +16,15 @@ export default function Home() {
 
       {/* Features Grid */}
       <Features />
+
+      {/* Scrolling Brand Logos */}
+      <BrandsStrip />
+
+      {/* Customer Testimonials */}
+      <Testimonials />
+
+      {/* Newsletter CTA Section */}
+      <Newsletter />
 
       {/* CTA Section */}
       <CTASection />

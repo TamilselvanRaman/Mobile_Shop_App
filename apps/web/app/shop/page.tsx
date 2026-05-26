@@ -15,6 +15,7 @@ async function getProducts(searchParams: any) {
     if (searchParams.maxPrice) params.append("maxPrice", searchParams.maxPrice);
     if (searchParams.condition) params.append("condition", searchParams.condition);
     if (searchParams.search) params.append("search", searchParams.search);
+    if (searchParams.sort) params.append("sort", searchParams.sort);
 
     const res = await fetch(`http://localhost:5001/api/products?${params.toString()}`, { 
         cache: "no-store"
@@ -28,19 +29,35 @@ async function getProducts(searchParams: any) {
   }
 }
 
+function getSortUrl(currentParams: any, sortValue: string) {
+  const params = new URLSearchParams();
+  Object.entries(currentParams).forEach(([key, val]) => {
+    if (val !== undefined && key !== "sort") {
+      if (Array.isArray(val)) {
+        params.append(key, val.join(","));
+      } else {
+        params.append(key, String(val));
+      }
+    }
+  });
+  params.set("sort", sortValue);
+  return `?${params.toString()}`;
+}
+
 export default async function ShopPage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
   const products = await getProducts(searchParams);
+  const activeSort = (searchParams.sort as string) || "newest";
 
   return (
-    <main className="bg-white dark:bg-slate-950 min-h-screen pt-24 pb-20">
+    <main className="bg-white dark:bg-slate-950 min-h-screen pt-28 pb-20">
       {/* Premium Header */}
       <div className="relative overflow-hidden mb-12 py-12 border-b border-slate-100 dark:border-slate-800">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary-500/5 to-transparent pointer-events-none" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-indigo-500/5 to-transparent pointer-events-none" />
         <Container>
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-black uppercase tracking-widest text-slate-500">
-                <Package size={12} className="text-primary-600" />
+                <Package size={12} className="text-indigo-600" />
                 Collection 2024
               </div>
               <h1 className="text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -53,14 +70,14 @@ export default async function ShopPage({ searchParams }: { searchParams: { [key:
             
             {/* Search Bar */}
             <div className="relative w-full lg:w-[400px] group">
-               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary-600 transition-colors h-5 w-5" />
+               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-600 transition-colors h-5 w-5" />
                <form action="/shop" method="GET">
                    <input 
                      name="search"
                      type="text" 
                      defaultValue={searchParams.search as string}
                      placeholder="Title, brand, or model..." 
-                     className="w-full h-14 pl-12 pr-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:ring-4 focus:ring-primary-500/10 focus:border-primary-500 outline-none transition-all font-medium text-slate-900 dark:text-white"
+                     className="w-full h-14 pl-12 pr-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 outline-none transition-all font-medium text-slate-900 dark:text-white"
                    />
                </form>
             </div>
@@ -75,6 +92,37 @@ export default async function ShopPage({ searchParams }: { searchParams: { [key:
 
           {/* Product Grid */}
           <div className="flex-1">
+             {/* Sort Bar */}
+             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 p-4 rounded-2xl mb-8">
+               <p className="text-xs font-black uppercase tracking-wider text-slate-400">
+                 Sort & Organize
+               </p>
+               <div className="flex flex-wrap gap-2 items-center">
+                 <span className="text-xs font-bold text-slate-500 mr-2">Sort by:</span>
+                 {[
+                   { label: "Newest", value: "newest" },
+                   { label: "Price: Low to High", value: "price_asc" },
+                   { label: "Price: High to Low", value: "price_desc" }
+                 ].map((opt) => {
+                   const isActive = activeSort === opt.value;
+                   return (
+                     <Link
+                       key={opt.value}
+                       href={getSortUrl(searchParams, opt.value)}
+                       scroll={false}
+                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                         isActive
+                           ? "bg-indigo-600 text-white shadow-lg shadow-indigo-600/10"
+                           : "bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/50 dark:border-slate-800 text-slate-600 dark:text-slate-400"
+                       }`}
+                     >
+                       {opt.label}
+                     </Link>
+                   );
+                 })}
+               </div>
+             </div>
+
              {products.length === 0 ? (
                <div className="flex flex-col items-center justify-center py-20 text-center glass rounded-[3rem] p-12">
                    <div className="w-24 h-24 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mb-8 border border-slate-200 dark:border-slate-800">
@@ -107,7 +155,7 @@ export default async function ShopPage({ searchParams }: { searchParams: { [key:
                          <Button variant="ghost" disabled className="rounded-xl px-4 py-2 font-bold opacity-50">Prev</Button>
                          <div className="flex gap-1">
                             {[1].map(n => (
-                                <button key={n} className="w-10 h-10 rounded-xl bg-primary-600 text-white font-black text-sm shadow-lg shadow-primary-500/30">{n}</button>
+                                <button key={n} className="w-10 h-10 rounded-xl bg-indigo-600 text-white font-black text-sm shadow-lg shadow-indigo-500/30">{n}</button>
                             ))}
                          </div>
                          <Button variant="ghost" className="rounded-xl px-4 py-2 font-bold hover:bg-slate-100 dark:hover:bg-slate-900">Next</Button>

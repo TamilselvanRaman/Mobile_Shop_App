@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Input } from "@mobile-shop/ui";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Lock, Mail, User, AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Lock, Mail, User, AlertCircle, ArrowRight, CheckCircle2, ArrowLeft, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function RegisterPage() {
@@ -17,6 +17,23 @@ export default function RegisterPage() {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
+
+  const calculateStrength = (pwd: string) => {
+    let score = 0;
+    if (!pwd) return 0;
+    if (pwd.length >= 6) score += 1;
+    if (pwd.length >= 10) score += 1;
+    if (/[A-Z]/.test(pwd)) score += 1;
+    if (/[0-9]/.test(pwd)) score += 1;
+    if (/[^A-Za-z0-9]/.test(pwd)) score += 1;
+    return score;
+  };
+
+  const handlePasswordChange = (val: string) => {
+    setFormData({ ...formData, password: val });
+    setPasswordStrength(calculateStrength(val));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,17 +76,40 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen w-full flex bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
       {/* Left Side - Form */}
-      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 z-10 bg-white dark:bg-slate-950 lg:w-1/2">
+      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 z-10 bg-white dark:bg-slate-950 lg:w-1/2 pt-16 pb-12">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="mt-6 text-3xl font-black tracking-tight text-slate-900 dark:text-white">
-              Join MobileShop
-            </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            {/* Back to Home & Logo row */}
+            <div className="mb-10 flex flex-col gap-6">
+              <Link href="/" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 transition-colors w-fit group">
+                <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
+                <span>Back to Home</span>
+              </Link>
+
+              <div className="flex items-center gap-3">
+                <div className="relative w-9 h-9 bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-500/15">
+                   <Zap size={18} className="fill-white" />
+                </div>
+                <span className="font-black text-lg tracking-tighter uppercase text-slate-900 dark:text-white">
+                  Mobile<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">Shop.</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="flex justify-between items-end mb-2">
+              <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+                Join MobileShop
+              </h2>
+              <span className="text-[10px] font-black uppercase tracking-widest bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 px-2 py-1 rounded-md border border-slate-200/50 dark:border-slate-800 shadow-sm">
+                Step 1 of 1
+              </span>
+            </div>
+            
+            <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">
               Create your account to start shopping and booking repairs.
             </p>
           </motion.div>
@@ -93,7 +133,7 @@ export default function RegisterPage() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Full Name
                 </label>
                 <div className="relative group">
@@ -111,7 +151,7 @@ export default function RegisterPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Email address
                 </label>
                 <div className="relative group">
@@ -131,7 +171,7 @@ export default function RegisterPage() {
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Password
                   </label>
                   <div className="relative group">
@@ -143,14 +183,31 @@ export default function RegisterPage() {
                       placeholder="••••••••"
                       required
                       value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      onChange={(e) => handlePasswordChange(e.target.value)}
                       className="pl-10 block w-full rounded-xl border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all h-12"
                     />
                   </div>
+                  {formData.password && (
+                    <div className="mt-2 space-y-1">
+                      <div className="flex justify-between items-center text-[9px] font-black uppercase tracking-widest text-slate-400">
+                        <span>Strength</span>
+                        <span className={
+                          passwordStrength <= 2 ? "text-rose-500" : passwordStrength === 3 ? "text-amber-500" : "text-emerald-500"
+                        }>
+                          {passwordStrength <= 2 ? "Weak" : passwordStrength === 3 ? "Medium" : "Strong"}
+                        </span>
+                      </div>
+                      <div className="h-1 w-full bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden flex gap-0.5">
+                        <div className={`h-full rounded-full transition-all duration-300 ${
+                          passwordStrength <= 2 ? "w-1/3 bg-rose-500" : passwordStrength === 3 ? "w-2/3 bg-amber-500" : "w-full bg-emerald-500"
+                        }`} />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                     Confirm
                   </label>
                   <div className="relative group">
@@ -191,10 +248,10 @@ export default function RegisterPage() {
             </form>
 
             <div className="mt-8 text-center text-sm">
-              <span className="text-slate-600 dark:text-slate-400">Already a member?</span>{" "}
+              <span className="text-slate-500 dark:text-slate-400 font-medium">Already a member?</span>{" "}
               <Link
                 href="/login"
-                className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+                className="font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
               >
                 Sign in now
               </Link>
@@ -226,19 +283,19 @@ export default function RegisterPage() {
                         { title: "Express Delivery", desc: "Next-day shipping" },
                         { title: "Secure Warranty", desc: "12-month coverage" },
                      ].map((item, i) => (
-                        <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-left hover:bg-white/10 transition-colors">
+                        <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-left hover:bg-white/10 transition-colors shadow-lg">
                             <CheckCircle2 className="w-6 h-6 text-indigo-400 mb-3" />
                             <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-                            <p className="text-sm text-slate-400">{item.desc}</p>
+                            <p className="text-sm text-slate-400 font-medium">{item.desc}</p>
                         </div>
                      ))}
                 </div>
                 
-                <div>
-                    <h2 className="text-4xl font-black tracking-tight mb-4">
+                <div className="space-y-4">
+                    <h2 className="text-4xl font-black tracking-tight leading-tight">
                         Experience the Future of Mobile
                     </h2>
-                    <p className="text-lg text-slate-400">
+                    <p className="text-base text-slate-400 leading-relaxed max-w-sm mx-auto font-medium">
                         Join our community of tech enthusiasts and get access to exclusive deals, priority service, and the latest technology.
                     </p>
                 </div>

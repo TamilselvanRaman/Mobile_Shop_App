@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Input } from "@mobile-shop/ui";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Lock, Mail, AlertCircle, ArrowRight, ShieldCheck } from "lucide-react";
+import { Lock, Mail, AlertCircle, ArrowRight, ShieldCheck, ArrowLeft, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function LoginPage() {
@@ -49,17 +49,34 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen w-full flex bg-white dark:bg-slate-950 text-slate-900 dark:text-white">
       {/* Left Side - Form */}
-      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 z-10 bg-white dark:bg-slate-950 lg:w-1/2">
+      <div className="flex-1 flex flex-col justify-center px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 z-10 bg-white dark:bg-slate-950 lg:w-1/2 pt-16 pb-12">
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="mt-6 text-3xl font-black tracking-tight text-slate-900 dark:text-white">
+            {/* Back to Home & Logo row */}
+            <div className="mb-10 flex flex-col gap-6">
+              <Link href="/" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 transition-colors w-fit group">
+                <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
+                <span>Back to Home</span>
+              </Link>
+
+              <div className="flex items-center gap-3">
+                <div className="relative w-9 h-9 bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-500/15">
+                   <Zap size={18} className="fill-white" />
+                </div>
+                <span className="font-black text-lg tracking-tighter uppercase text-slate-900 dark:text-white">
+                  Mobile<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500">Shop.</span>
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white">
               Welcome Back
             </h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 font-medium">
               Sign in to manage your account and orders.
             </p>
           </motion.div>
@@ -83,7 +100,7 @@ export default function LoginPage() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Email address
                 </label>
                 <div className="relative group">
@@ -102,7 +119,7 @@ export default function LoginPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Password
                 </label>
                 <div className="relative group">
@@ -128,13 +145,13 @@ export default function LoginPage() {
                     type="checkbox"
                     className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-900"
                   />
-                  <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-900 dark:text-slate-300">
+                  <label htmlFor="remember-me" className="ml-2 block text-sm font-bold text-slate-700 dark:text-slate-300 select-none">
                     Remember me
                   </label>
                 </div>
 
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">
+                  <a href="#" className="font-bold text-indigo-650 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors">
                     Forgot your password?
                   </a>
                 </div>
@@ -162,10 +179,10 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-8 text-center text-sm">
-              <span className="text-slate-600 dark:text-slate-400">New here?</span>{" "}
+              <span className="text-slate-500 dark:text-slate-400 font-medium">New here?</span>{" "}
               <Link
                 href="/register"
-                className="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
+                className="font-bold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors"
               >
                 Create an account
               </Link>
@@ -188,30 +205,35 @@ export default function LoginPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="max-w-xl mx-auto space-y-8"
+                className="max-w-xl mx-auto space-y-12"
             >
-                <div>
-                   <div className="w-20 h-20 bg-indigo-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-indigo-500/20 backdrop-blur-sm">
+                <div className="space-y-6">
+                   <div className="w-20 h-20 bg-indigo-500/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-indigo-500/20 backdrop-blur-sm shadow-xl shadow-indigo-550/5">
                       <ShieldCheck className="w-10 h-10 text-indigo-400" />
                    </div>
-                    <h2 className="text-4xl font-black tracking-tight mb-4">
+                    <h2 className="text-4xl font-black tracking-tight leading-tight">
                         Secure & Seamless Shopping
                     </h2>
-                    <p className="text-lg text-slate-400">
+                    <p className="text-base text-slate-400 leading-relaxed max-w-sm mx-auto font-medium">
                         Access your order history, track shipments, and manage your repairs in one place. Your data is always protected.
                     </p>
                 </div>
                 
-                <div className="pt-8 grid grid-cols-3 gap-8 border-t border-white/10">
+                <div className="pt-8 grid grid-cols-3 gap-6 border-t border-white/10">
                     {[
-                        { label: "Happy Users", value: "50k+" },
-                        { label: "Products", value: "1000+" },
-                        { label: "Countries", value: "25+" },
+                        { label: "Happy Users", value: "50k+", yAnim: [0, -10, 0] },
+                        { label: "Products", value: "1000+", yAnim: [0, -14, 0] },
+                        { label: "Countries", value: "25+", yAnim: [0, -8, 0] },
                     ].map((stat, i) => (
-                        <div key={i}>
-                            <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                            <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">{stat.label}</div>
-                        </div>
+                        <motion.div 
+                          key={i}
+                          animate={{ y: stat.yAnim }}
+                          transition={{ repeat: Infinity, duration: 4 + i, ease: "easeInOut" }}
+                          className="bg-white/5 border border-white/10 backdrop-blur-md p-4 rounded-2xl flex flex-col items-center justify-center shadow-lg"
+                        >
+                            <div className="text-2xl font-black text-white mb-0.5">{stat.value}</div>
+                            <div className="text-[10px] text-slate-500 uppercase tracking-widest font-black">{stat.label}</div>
+                        </motion.div>
                     ))}
                 </div>
             </motion.div>

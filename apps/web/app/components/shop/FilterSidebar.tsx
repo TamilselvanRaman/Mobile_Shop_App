@@ -152,15 +152,23 @@ export function FilterSidebar() {
     </div>
   );
 
+  const activeCount = filters.brand.length + filters.condition.length + (filters.minPrice ? 1 : 0) + (filters.maxPrice ? 1 : 0);
+
   return (
     <>
       {/* Mobile Toggle Button */}
       <div className="md:hidden sticky top-24 z-30 mb-6 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md p-2 rounded-2xl border border-slate-200 dark:border-slate-800 flex gap-2">
         <Button 
-            className="flex-1 h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-none font-bold gap-2"
+            className="flex-1 h-12 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-none font-bold gap-2 flex items-center justify-center"
             onClick={() => setIsOpen(true)}
         >
-            <SlidersHorizontal size={16} /> Filters
+            <SlidersHorizontal size={16} /> 
+            <span>Filters</span>
+            {activeCount > 0 && (
+              <span className="flex items-center justify-center bg-indigo-600 dark:bg-indigo-500 text-white rounded-full w-5 h-5 text-[10px] font-black">
+                {activeCount}
+              </span>
+            )}
         </Button>
       </div>
 
@@ -182,10 +190,16 @@ export function FilterSidebar() {
                     transition={{ type: "spring", damping: 25, stiffness: 200 }}
                     className="fixed top-0 left-0 bottom-0 w-[85%] max-w-xs bg-white dark:bg-slate-950 z-[70] md:hidden shadow-2xl overflow-y-auto"
                 >
-                    <div className="sticky top-0 right-0 p-4 flex justify-end">
-                        <button onClick={() => setIsOpen(false)} className="p-2 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-500"><X size={20} /></button>
+                    <div className="sticky top-0 left-0 right-0 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 p-4 flex items-center justify-between z-10">
+                        <span className="font-black text-xs uppercase tracking-widest text-slate-900 dark:text-white">Filter Products</span>
+                        <button 
+                          onClick={() => setIsOpen(false)} 
+                          className="p-2 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                        >
+                          <X size={16} />
+                        </button>
                     </div>
-                    <div className="px-6 pb-12">{FilterContent}</div>
+                    <div className="px-6 pt-6 pb-12">{FilterContent}</div>
                 </motion.div>
             </>
         )}
