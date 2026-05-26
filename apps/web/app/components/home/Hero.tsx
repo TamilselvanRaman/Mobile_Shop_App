@@ -85,14 +85,14 @@ export function Hero() {
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5 pt-4"
             >
               <Link href="/shop" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto h-16 px-12 text-xl rounded-2xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 text-white shadow-[0_20px_40px_rgba(79,70,229,0.3)] border-0 hover:scale-105 transition-transform duration-300">
+                <button className="w-full sm:w-auto h-16 px-12 text-xl font-bold rounded-2xl bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 text-white shadow-[0_20px_40px_rgba(79,70,229,0.3)] border-0 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2">
                   Shop Now
-                </Button>
+                </button>
               </Link>
               <Link href="/services" className="w-full sm:w-auto">
-                <Button size="lg" variant="ghost" className="w-full sm:w-auto h-16 px-12 text-xl rounded-2xl border-2 border-slate-200 bg-white/50 backdrop-blur-md text-slate-900 hover:bg-white shadow-sm transition-all">
-                  Book Repair <ArrowRight className="ml-2 w-6 h-6" />
-                </Button>
+                <button className="w-full sm:w-auto h-16 px-12 text-xl font-bold rounded-2xl border-2 border-slate-200 bg-white/50 backdrop-blur-md text-slate-900 hover:bg-white shadow-sm active:scale-95 transition-all duration-300 flex items-center justify-center gap-2">
+                  Book Repair <ArrowRight className="w-6 h-6" />
+                </button>
               </Link>
             </motion.div>
             
